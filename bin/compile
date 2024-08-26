@@ -1,0 +1,53 @@
+#!/bin/sh
+
+set -e
+#set -x
+
+indent() {
+    sed -u 's/^/      /'
+}
+
+export_env_dir() {
+  env_dir=$1
+  acceptlist_regex=${2:-''}
+  denylist_regex=${3:-'^(PATH|GIT_DIR|CPATH|CPPATH|LD_PRELOAD|LIBRARY_PATH)$'}
+  if [ -d "$env_dir" ]; then
+    for e in $(ls $env_dir); do
+      echo "$e" | grep -E "$acceptlist_regex" | grep -qvE "$denylist_regex" &&
+      export "$e=$(cat $env_dir/$e)"
+      :
+    done
+  fi
+}
+
+# Gather params
+BUILD_DIR="$1"
+CACHE_DIR="$2"
+ENV_DIR="$3"
+
+# Export env files as env vars
+export_env_dir $ENV_DIR
+
+# Formulate repo API URL
+REPO_OWNER="${REPO_OWNER:-heroku}"
+REPO_PROJECT="${REPO_PROJECT:-heroku-integration-service-mesh}"
+API_URL="https://api.github.com/repos/${REPO_OWNER}/${REPO_PROJECT}/releases/latest"
+
+# Require jq util
+if ! command -v jq > /dev/null; then
+    echo " !     jq is not installed!"
+    echo " !     Ensure the app is on the latest Heroku stack"
+    exit 1
+fi
+
+# Setup release vars
+LATEST_RELEASE_JSON=$(curl -s $API_URL)
+LATEST_TAG=$(echo $LATEST_RELEASE_JSON | jq .tag_name)
+DOWNLOAD_URL=$(echo $LATEST_RELEASE_JSON | jq -r '..| .browser_download_url? // empty')
+BINARY_FILE="${BINARY_FILE:-$(echo $DOWNLOAD_URL | rev | cut -d '/' -f 1 | rev | cut -d '.' -f1)}"
+
+# Download
+echo "------> Installing Heroku Integration Service Mesh, version $LATEST_TAG..."
+cd $BUILD_DIR && curl -JLs $DOWNLOAD_URL | tar xz
+echo "Installing... done" | indent
+echo "------> Ensure that Heroku Integration Service Mesh's install binary ($BINARY_FILE) is configured in your Procfile's web process to start your app, eg '$BINARY_FILE <app startup command>'" | indent
