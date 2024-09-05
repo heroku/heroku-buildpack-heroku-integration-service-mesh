@@ -5,12 +5,27 @@ This buildpack installs [Heroku Integration Service Mesh](https://github.com/her
 For more information, see [Heroku Integrations](https://devcenter.heroku.com/articles/heroku-integration).
 
 ## Installation
-```sh
+```shell
 heroku buildpacks:add heroku/heroku-buildpack-heroku-integration-service-mesh
 ```
 
 ## Usage
 The Heroku Integration Service Mesh binary must be configured in your Procfile web process to start your app.
-```sh
+```shell
 web: heroku-integration-service-mesh <your app startup command>
+```
+The latest Heroku Integration Service Mesh release will be installed.
+
+To declare a specific release version or tag set `HEROKU_INTEGRATION_SERVICE_MESH_RELEASE_VERSION` config or environment variable.
+```shell
+HEROKU_INTEGRATION_SERVICE_MESH_RELEASE_VERSION=v1.0.0
+```
+
+During deployment, Heroku Integration Service Mesh binary is installed.
+```shell
+-----> Installing version "v0.1.0" of Heroku Integration Service Mesh...
+       Downloading heroku-integration-service-mesh...
+       Installing heroku-integration-service-mesh...
+       Done!
+-----> Ensure that heroku-integration-service-mesh is configured in your Procfile's web process to start your app, eg heroku-integration-service-mesh <app startup command>
 ```
