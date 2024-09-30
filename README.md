@@ -29,3 +29,21 @@ During deployment, Heroku Integration Service Mesh binary is installed.
        Done!
 -----> Ensure that heroku-integration-service-mesh is configured in your Procfile's web process to start your app, eg heroku-integration-service-mesh <app startup command>
 ```
+
+## Run Locally
+```shell
+$ git clone git@github.com:heroku/heroku-buildpack-heroku-integration-service-mesh.git
+...
+$ cd heroku-buildpack-heroku-integration-service-mesh
+$ mkdir build_dir cache_dir env_dir
+$ bin/compile build_dir cache_dir env_dir/
+-----> Installing version "v0.12.1" of Heroku Integration Service Mesh...
+       Downloading heroku-integration-service-mesh...
+       Installing heroku-integration-service-mesh...
+       Done!
+-----> Ensure that heroku-integration-service-mesh is configured in your Procfile's web process to start your app, eg heroku-integration-service-mesh <app startup command>
+$ ls -l build_dir/vendor/heroku-integration/bin/
+total 12M
+-rwxrwxr-x 1 cwall cwall 12M Sep 27 07:55 heroku-integration-service-mesh
+
+```
