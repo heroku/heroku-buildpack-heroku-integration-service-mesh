@@ -74,7 +74,7 @@ fi
 echo "Installing $BINARY_FILE..." | indent
 PROFILE_PATH="$BUILD_DIR/.profile.d/$BINARY_FILE.sh"
 mkdir -p $(dirname $PROFILE_PATH)
-echo 'export PATH="$PATH:'$VENDOR_DIR'"' >> $PROFILE_PATH
+echo 'export PATH="$PATH:'$HOME/$VENDOR_DIR'"' >> $PROFILE_PATH
 
 echo "Done!" | indent
 echo "-----> Ensure that $BINARY_FILE is configured in your Procfile's web process to start your app, eg $BINARY_FILE <app startup command>"
