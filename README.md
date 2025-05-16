@@ -45,5 +45,8 @@ $ bin/compile build_dir cache_dir env_dir/
 $ ls -l build_dir/vendor/heroku-integration/bin/
 total 12M
 -rwxrwxr-x 1 cwall cwall 12M Sep 27 07:55 heroku-integration-service-mesh
-
 ```
+
+## Monitoring and Alerting
+
+For information on monitoring buildpack usage & failures, see [Monitoring and Alerting](docs/alerting.md).
