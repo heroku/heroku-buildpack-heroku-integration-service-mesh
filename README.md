@@ -8,6 +8,11 @@ For more information, see [Heroku Integrations](https://devcenter.heroku.com/art
 ```shell
 heroku buildpacks:add heroku/heroku-buildpack-heroku-integration-service-mesh
 ```
+This doesn't work at the moment.
+
+```
+heroku buildpacks:add https://github.com/heroku/heroku-buildpack-heroku-integration-service-mesh -a <your_app_name>
+```
 
 ## Usage
 The Heroku Integration Service Mesh binary must be configured in your Procfile web process to start your app.
