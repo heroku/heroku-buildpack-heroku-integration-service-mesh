@@ -71,6 +71,8 @@ if [ ! -f "$DOWNLOAD_INSTALL_DIR/$BINARY_FILE" ]; then
     exit 1
 fi
 
+ln -s "$BINARY_NAME" "$DOWNLOAD_INSTALL_DIR/heroku-applink-service-mesh"
+
 echo "Installing $BINARY_FILE..." | indent
 PROFILE_PATH="$BUILD_DIR/.profile.d/$BINARY_FILE.sh"
 mkdir -p $(dirname $PROFILE_PATH)
