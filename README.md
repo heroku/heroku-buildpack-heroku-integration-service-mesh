@@ -6,7 +6,7 @@ For more information, see [Heroku Integrations](https://devcenter.heroku.com/art
 
 ## Installation
 ```shell
-heroku buildpacks:add heroku/heroku-buildpack-heroku-integration-service-mesh
+heroku buildpacks:add https://github.com/heroku/heroku-buildpack-heroku-integration-service-mesh.git
 ```
 This doesn't work at the moment.
 
